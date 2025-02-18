@@ -1,8 +1,8 @@
 const url = 'https://travelers-app.netlify.app';
 const testCity = "Test - Paris";
-const updatedCity = "Test - Paris :)";
+const updatedCity = "Test - Paris with snow";
 const testNote = "Test - Great trip to Paris :)";
-const updatedNote = "Test - Paris was really great!";
+const updatedNote = "Test - Paris was really great with snow!";
 
 describe('Page structure test', () => {
   it('Page loads with structure (navbar, footer, h1 with title)', () => {
@@ -20,7 +20,7 @@ describe('Page structure test', () => {
   })
 })
 
-describe('Creation of an event', () => {
+describe ('Creation of an event', () => {
   it ('In the page "My trips" a button "+" brings us to the form to add a new trip', () => {
     cy.visit(url);
     cy.get('nav').find('a').contains('My trips').click();
@@ -62,6 +62,12 @@ describe('Creation of an event', () => {
     cy.url().should('include', 'my-trips'); //after the submission the page is reloaded
     cy.get('.my-trips-list .travel-card').contains(testCity).should('be.visible'); // the submitted travel is added in the reloaded page
   })
+
+  it('Test',() => {
+    cy.visit(url);
+    cy.get('nav').find('a').contains('My trips').click();
+    cy.get('.my-trips-list>.travel-card').contains(testCity).should('be.visible');
+  })
 })
 
 describe('Edit the created trip', () => {
@@ -69,8 +75,6 @@ describe('Edit the created trip', () => {
     // Identify the created travel
     cy.visit(url);
     cy.get('nav').find('a').contains('My trips').click();
-    cy.get('.my-trips-list .travel-card').should('contain', testCity);
-
     cy.get('.my-trips-list .travel-card').contains(testCity).click();
     cy.get('.details-container').should('be.visible');
 
